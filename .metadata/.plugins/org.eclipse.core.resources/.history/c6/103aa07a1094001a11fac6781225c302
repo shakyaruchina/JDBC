@@ -1,0 +1,60 @@
+package dataFetch;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import com.mysql.cj.jdbc.MysqlDataSource;
+
+public class updateData {
+
+	public static void main(String[] args)throws Exception{ 
+		MysqlDataSource dataSource = new MysqlDataSource();
+		dataSource.setServerTimezone("UTC");
+		String url = "jdbc:mysql://localhost:3306/demo?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDateTimeCode=false&serverTimezone=UTC";
+		String uname = "root";
+		String pass = "macbookair";
+		String query = "UPDATE contacts SET register_date='2019-05-11' WHERE user_id='3'"; 
+	 
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection con = DriverManager.getConnection(url,uname,pass);
+		
+		Statement state = con.createStatement();
+		
+		state.executeUpdate(query);
+	 
+		ResultSet rs =state.executeQuery(query);
+		
+		System.out.println("firstName   lastName   register_date");
+	 
+		while(rs.next()){
+			String	firstName = rs.getString("firstName");
+			String	lastName = rs.getString("lastName");
+			//int	contactNo = rs.getInt("contactNo");
+			java.sql.Date register_date = rs.getDate("register_date");
+		
+	 
+			System.out.println(firstName+ "        " + lastName+"        "+ register_date);
+			
+			
+	 
+		
+			}
+		System.out.println();
+		System.out.println();
+		
+		
+		
+		
+		
+		state.close();
+		con.close();
+
+	
+	
+		
+
+	}
+
+	}

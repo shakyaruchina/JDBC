@@ -1,0 +1,49 @@
+package dataFetch;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+import com.mysql.cj.jdbc.MysqlDataSource;
+
+public class dataEntry {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		try {
+			MysqlDataSource dataSource = new MysqlDataSource();
+			dataSource.setServerTimezone("UTC");
+			String url = "jdbc:mysql://localhost:3306/demo?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDateTimeCode=false&serverTimezone=UTC";
+			String uname = "root";
+			String pass = "macbookair";
+			
+		 
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(url,uname,pass);
+			System.out.println("Connection has started");
+			Statement state = con.createStatement();
+			System.out.println("Enter the firstname");
+			String firstName = scanner.next();
+			System.out.println("Enter the last name");
+			String lastName = scanner.next();
+			System.out.println("Enter the email");
+			String email = scanner.next();
+			System.out.println("Enter your password");
+			String password = scanner.next();
+			System.out.println("Enter your location");
+			String location= scanner.next();
+			
+			state.executeUpdate("insert into users("+firstName+"','"+lastName+"','"+email+"','"+password+"','"+location+"')");
+		}catch(ClassNotFoundException e) {
+			
+			e.printStackTrace();
+		}catch(SQLException e) {
+			e.printStackTrace();
+			
+		}
+
+	}
+
+}

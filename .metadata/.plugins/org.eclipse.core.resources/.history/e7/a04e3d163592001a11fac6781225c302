@@ -1,0 +1,26 @@
+package dataFetch;
+
+import java.sql.*;
+public class dataTest
+{
+	 public static void main(String[] args) throws Exception {
+		 
+		 String url = "jdbc.mysql://localhost:3306//demo";
+		 String uname = "root";
+		 String pass = "";
+		 String query = "select firstName from users where id=1";
+		 Class.forName("com.mysql.cj.jdbc.Driver");
+		 Connection con = DriverManager.getConnection(url,uname,pass);
+		 
+		 Statement state = con.createStatement();
+		 
+		 ResultSet rs =state.executeQuery(query);
+		 
+		 rs.next();
+		 String name = rs.getString("firstName");
+		 
+		 System.out.println(name);
+		 
+		 state.close();
+		 con.close();
+	 }}
